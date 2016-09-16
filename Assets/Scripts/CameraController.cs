@@ -4,14 +4,14 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 
     public GameObject gizmoTest;
-    Camera camera;
+    Camera myCamera;
     Rigidbody2D player;
     PlayerController playerController;
     bool? isLerping = null;
 
     // Use this for initialization
     void Start () {
-        camera = this.GetComponent<Camera>();
+        myCamera = this.GetComponent<Camera>();
         player = GameObject.Find("Player").GetComponent<Rigidbody2D>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
@@ -43,15 +43,17 @@ public class CameraController : MonoBehaviour {
         /*Vector3 bottomLeft = camera.ScreenToWorldPoint(new Vector3(pixelWidth * .3f, pixelHeight * .3f, cameraZ));
         Vector3 topLeft = camera.ScreenToWorldPoint(new Vector3(pixelWidth * .3f, pixelHeight * .6f, cameraZ));
         Vector3 topRight = camera.ScreenToWorldPoint(new Vector3(pixelWidth * .6f, pixelHeight * .6f, cameraZ));
-        Vector3 bottomRight = camera.ScreenToWorldPoint(new Vector3(pixelWidth * .6f, pixelHeight * .3f, cameraZ));*/ 
-        Vector3 bottomLeft = camera.ViewportToWorldPoint(new Vector3(.3f, .3f, 1));
-        Vector3 topLeft = camera.ViewportToWorldPoint(new Vector3(.3f, .6f, 1));
-        Vector3 topRight = camera.ViewportToWorldPoint(new Vector3(.6f, .6f, 1));
-        Vector3 bottomRight = camera.ViewportToWorldPoint(new Vector3(.6f, .3f, 1));
-        Gizmos.DrawLine(bottomLeft, topLeft);
-        Gizmos.DrawLine(topLeft, topRight);
-        Gizmos.DrawLine(topRight, bottomRight);
-        Gizmos.DrawLine(bottomRight, bottomLeft);
+        Vector3 bottomRight = camera.ScreenToWorldPoint(new Vector3(pixelWidth * .6f, pixelHeight * .3f, cameraZ));*/
+        if (myCamera != null) {
+            Vector3 bottomLeft = myCamera.ViewportToWorldPoint(new Vector3(.3f, .3f, 1));
+            Vector3 topLeft = myCamera.ViewportToWorldPoint(new Vector3(.3f, .6f, 1));
+            Vector3 topRight = myCamera.ViewportToWorldPoint(new Vector3(.6f, .6f, 1));
+            Vector3 bottomRight = myCamera.ViewportToWorldPoint(new Vector3(.6f, .3f, 1));
+            Gizmos.DrawLine(bottomLeft, topLeft);
+            Gizmos.DrawLine(topLeft, topRight);
+            Gizmos.DrawLine(topRight, bottomRight);
+            Gizmos.DrawLine(bottomRight, bottomLeft);
+        }
         //Vector3 cameraCenter = camera.ViewportToWorldPoint(new Vector3(.5f, .5f, this.transform.position.z));
         //Gizmos.DrawWireCube(new Vector3(cameraCenter.x, cameraCenter.y, 0), new Vector3(.3f, .3f, .3f));
     }
